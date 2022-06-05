@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: auth
-        # image: 231615/auth
-        image: us.gcr.io/ticketing-dev-352407/auth
+        image: 231615/auth
+        # image: us.gcr.io/ticketing-dev-352407/auth
 
 ---
 
