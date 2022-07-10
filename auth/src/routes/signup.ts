@@ -3,7 +3,7 @@ import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { BadRequestError } from '../errors/badRequestError';
-import { RequestValidationError } from '../errors/requestValidationError';
+import { validateRequest } from '../middlewares/validateRequest';
 import { User } from '../models/users';
 
 const router = express.Router();
@@ -14,12 +14,13 @@ router.post(
     body('email').isEmail().withMessage('Email must be valid'),
     body('password').trim().isLength({ min: 4, max: 20 }).withMessage('Password must be between 4 and 20 characters'),
   ],
+  validateRequest,
   async (req: Request, res: Response) => {
-    const errors = validationResult(req);
+    // const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
-    }
+    // if (!errors.isEmpty()) {
+    //   throw new RequestValidationError(errors.array());
+    // }
 
     const { email, password } = req.body;
 
