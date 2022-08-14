@@ -7,8 +7,12 @@ const start = async () => {
     throw new Error('Env variable "JWT_KEy" not defined');
   }
 
+  if (!process.env.MONGO_URI) {
+    throw new Error('Env variable "MONGO_URI" not defined');
+  }
+
   try {
-    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('connected to mongo');
   } catch (error) {
     console.error({
