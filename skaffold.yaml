@@ -19,6 +19,16 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.ts'
+
+    - image: 231615/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
+            
     - image: 231615/ticketing-client
       context: client
       docker:
