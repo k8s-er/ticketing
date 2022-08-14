@@ -1,9 +1,8 @@
+import { BadRequestError, validateRequest } from '@hrdev/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { BadRequestError } from '../errors/badRequestError';
-import { validateRequest } from '../middlewares/validateRequest';
 import { User } from '../models/users';
 import { Password } from '../services/password';
 

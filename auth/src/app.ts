@@ -1,11 +1,11 @@
 import 'express-async-errors';
 
+import { NotFoundError } from '@hrdev/common';
+import { errorHandler } from '@hrdev/common';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
 
-import { NotFoundError } from './errors/notFoundError';
-import { errorHandler } from './middlewares/errorHandler';
 import { currentUserRouter } from './routes/currentUser';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
