@@ -1,8 +1,10 @@
+import {
+  Subjects,
+  TicketCreatedEvent,
+} from '@hrdev/common';
 import { Message } from 'node-nats-streaming';
 
-import { BaseListener } from './baseListener';
-import { Subjects } from './subjects';
-import { TicketCreatedEvent } from './ticketCreatedEvent';
+import { BaseListener } from '../../../../common/src/events/baseListener';
 
 export class TicketCreatedListener extends BaseListener<TicketCreatedEvent> {
   readonly subject: Subjects.TicketCreates =
