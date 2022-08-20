@@ -1,8 +1,15 @@
-import { NotAuthorizedError, NotFoundError, requireAuth, validateRequest } from '@hrdev/common';
+import {
+  NotAuthorizedError,
+  NotFoundError,
+  requireAuth,
+  validateRequest,
+} from '@hrdev/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 
+import { TicketUpdatedPublisher } from '../events/publisher/ticketUpdatedPublisher';
 import { Ticket } from '../models/tickets';
+import { natsWrapper } from '../natsWrapper';
 
 const router = express.Router();
 
@@ -10,8 +17,13 @@ router.put(
   '/api/tickets/:id',
   requireAuth,
   [
-    body('title').not().isEmpty().withMessage('Title is required'),
-    body('price').isFloat({ gt: 0 }).withMessage('Price must be greater that 0'),
+    body('title')
+      .not()
+      .isEmpty()
+      .withMessage('Title is required'),
+    body('price')
+      .isFloat({ gt: 0 })
+      .withMessage('Price must be greater that 0'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -31,6 +43,15 @@ router.put(
     });
 
     await ticket.save();
+
+    await new TicketUpdatedPublisher(
+      natsWrapper.client,
+    ).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
 
     res.send(ticket);
   },
