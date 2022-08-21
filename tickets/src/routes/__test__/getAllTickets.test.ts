@@ -34,7 +34,9 @@ it('should fetch the tickets', async () => {
       price: price3,
     });
 
-  const response = await request(app).get('/api/tickets').send();
+  const response = await request(app)
+    .get('/api/tickets')
+    .send();
 
   expect(response.statusCode).toEqual(200);
   expect(response.body.length).toEqual(3);

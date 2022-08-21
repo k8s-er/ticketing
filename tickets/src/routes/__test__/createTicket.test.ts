@@ -2,15 +2,21 @@ import request from 'supertest';
 
 import { app } from '../../app';
 import { Ticket } from '../../models/tickets';
+import { natsWrapper } from '../../natsWrapper';
 import getCookie from '../../test/getCookie';
 
 it('has a route handler listening to /api/ticket for post request', async () => {
-  const response = await request(app).post('/api/tickets').send({});
+  const response = await request(app)
+    .post('/api/tickets')
+    .send({});
   expect(response.status).not.toEqual(404);
 });
 
 it('can only be access when authenticate', async () => {
-  await request(app).post('/api/tickets').send({}).expect(401);
+  await request(app)
+    .post('/api/tickets')
+    .send({})
+    .expect(401);
 });
 
 it('return a status other than 401 if user is logged in', async () => {
@@ -75,4 +81,17 @@ it('create the ticket with right inputs', async () => {
   tickets = await Ticket.find({});
   expect(tickets.length).toEqual(1);
   expect(tickets[0].price).toEqual(20);
+});
+
+it('publishes an event', async () => {
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', await getCookie())
+    .send({
+      title: 'new ticket',
+      price: 20,
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
