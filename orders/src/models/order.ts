@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 
 import { TicketDoc } from './ticket';
 
+export { OrderStatus };
+
 interface OrderAttrs {
   userId: string;
   status: OrderStatus;
@@ -45,6 +47,7 @@ const orderSchema = new mongoose.Schema(
     toJSON: {
       transform(doc, ret) {
         ret.id = ret._id;
+        delete ret._id;
       },
     },
   },

@@ -1,4 +1,7 @@
-import { BadRequestError, validateRequest } from '@hrdev/common';
+import {
+  BadRequestError,
+  validateRequest,
+} from '@hrdev/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
@@ -11,8 +14,13 @@ const router = express.Router();
 router.post(
   '/api/users/signin',
   [
-    body('email').isEmail().withMessage('Email must be valid'),
-    body('password').trim().notEmpty().withMessage('you must apply the password'),
+    body('email')
+      .isEmail()
+      .withMessage('Email must be valid'),
+    body('password')
+      .trim()
+      .notEmpty()
+      .withMessage('you must apply the password'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -25,7 +33,10 @@ router.post(
     if (!existingUser) {
       throw new BadRequestError('Invalid credentials');
     }
-    const passMatch = await Password.compare(existingUser.password, password);
+    const passMatch = await Password.compare(
+      existingUser.password,
+      password,
+    );
     if (!passMatch) {
       throw new BadRequestError('Invalid credentials');
     }
