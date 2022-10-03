@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import request from 'supertest';
 
 import { app } from '../../app';
@@ -10,6 +11,7 @@ it('cancel the orders', async () => {
   const ticket = Ticket.build({
     title: 'concert',
     price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   const user = getCookie();
@@ -37,6 +39,7 @@ it('publish and event', async () => {
   const ticket = Ticket.build({
     title: 'concert',
     price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await ticket.save();
   const user = getCookie();

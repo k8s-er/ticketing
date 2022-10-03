@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hrdev/common": "^1.0.7",
+    "@hrdev/common": "^1.0.10",
     "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.13",
     "@types/jest": "^28.1.6",
