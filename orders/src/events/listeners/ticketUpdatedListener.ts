@@ -5,7 +5,7 @@ import {
 } from '@hrdev/common';
 import { Message } from 'node-nats-streaming';
 
-import { Ticket } from '../models/ticket';
+import { Ticket } from '../../models/ticket';
 import { QUEUE_GROUP_NAME } from './queueGroupName';
 
 export class TicketUpdatedListener extends BaseListener<TicketUpdatedEvent> {
