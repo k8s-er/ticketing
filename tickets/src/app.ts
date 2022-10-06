@@ -1,6 +1,10 @@
 import 'express-async-errors';
 
-import { currentUser, errorHandler, NotFoundError } from '@hrdev/common';
+import {
+  currentUser,
+  errorHandler,
+  NotFoundError,
+} from '@hrdev/common';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
