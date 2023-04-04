@@ -17,9 +17,23 @@ export class OrderCreatedListener extends BaseListener<OrderCreatedEvent> {
     data: OrderCreatedEvent['data'],
     msg: Message,
   ) {
-    await expirationQueue.add({
-      orderId: data.id,
-    });
+    const delay =
+      new Date(data.expiresAt).getTime() -
+      new Date().getTime();
+
+    console.log(
+      'Waiting this many milliseconds to process the job:',
+      delay,
+    );
+
+    await expirationQueue.add(
+      {
+        orderId: data.id,
+      },
+      {
+        delay: 10 * 1000,
+      },
+    );
 
     msg.ack();
   }
