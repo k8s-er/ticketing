@@ -56,3 +56,12 @@ build:
           - src: "**/*.js"
             dest: .
   
+    - image: 231615/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+  

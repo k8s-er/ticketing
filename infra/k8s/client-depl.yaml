@@ -15,7 +15,9 @@ spec:
       containers:
         - name: client
           image: 231615/ticketing-client
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:

@@ -22,8 +22,8 @@ it('fetches orders for a user', async () => {
   const ticketTwo = await buildTicket();
   const ticketThree = await buildTicket();
 
-  const userOne = getCookie();
-  const userTwo = getCookie();
+  const userOne = await getCookie();
+  const userTwo = await getCookie();
 
   // Create one order as user 1
   await request(app)
