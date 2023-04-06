@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'infra/**'
+    paths:
+      - 'infra/**'
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USER_NAME }}
@@ -16,7 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - uses: actions/checkout@v2
       - uses: digitalocean/action-doctl@v2
         with:
