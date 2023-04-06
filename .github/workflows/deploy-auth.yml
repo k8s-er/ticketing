@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd auth && docker build -t 231615/auth .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - run: docker push 231615/auth
       - uses: digitalocean/action-doctl@v2
         with:
           token: $DIGITALOCEAN_ACCESS_TOKEN
+      - run: cd auth && docker build -t 231615/auth .
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run: docker push 231615/auth
       - run: doctl kubernetes cluster kubeconfig save k8s-1-26-3-do-0-blr1-1680764427709
       - run: kubectl rollout restart deployment auth-depl
