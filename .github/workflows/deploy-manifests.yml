@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'infra/**'
+    # paths:
+    #   - 'infra/**'
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USER_NAME }}
