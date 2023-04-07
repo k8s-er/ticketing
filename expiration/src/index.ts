@@ -2,6 +2,8 @@ import { OrderCreatedListener } from './events/listeners/orderCreatedListener';
 import { natsWrapper } from './natsWrapper';
 
 const start = async () => {
+  console.log('starting up expiration...!!');
+
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error(
       'Env variable "NATS_CLIENT_ID" not defined',
