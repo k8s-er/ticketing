@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 import { app } from './app';
 import { OrderCancelledListener } from './events/listeners/orderCancelledListener';
 import { OrderCreatedListener } from './events/listeners/orderCreatedListener';
-// import { OrderCancelledListener } from './events/listeners/orderCancelledEvent';
-// import { OrderCreatedListener } from './events/listeners/orderCreatedListener';
 import { natsWrapper } from './natsWrapper';
 
 const start = async () => {
+  console.log('starting up payments...!!');
+
   if (!process.env.JWT_KEY) {
     throw new Error('Env variable "JWT_KEy" not defined');
   }
