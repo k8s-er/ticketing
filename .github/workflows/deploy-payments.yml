@@ -1,0 +1,26 @@
+name: deploy-payments
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'payments/**'
+
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USER_NAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: cd payments && docker build -t 231615/payments .
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run: docker push 231615/payments
+      - run: doctl kubernetes cluster kubeconfig save k8s-1-26-3-do-0-blr1-1680764427709
+      - run: kubectl rollout restart deployment payments-depl
