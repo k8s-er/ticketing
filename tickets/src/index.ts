@@ -6,7 +6,7 @@ import { OrderCreatedListener } from './events/listeners/orderCreatedListener';
 import { natsWrapper } from './natsWrapper';
 
 const start = async () => {
-  console.log('starting up tickets...!!');
+  console.log('starting up tickets...');
   if (!process.env.JWT_KEY) {
     throw new Error('Env variable "JWT_KEy" not defined');
   }
