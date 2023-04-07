@@ -10,22 +10,15 @@ on:
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USER_NAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # - run: echo "DIGITAL_ACCESS_TOKEN = $DIGITALOCEAN_ACCESS_TOKEN"
-      - name: Debug environment variables
-        run: |
-          echo "My environment variables are:"
-          printenv
-        if: always()
       - uses: digitalocean/action-doctl@v2
         with:
-          token: $DIGITALOCEAN_ACCESS_TOKEN
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: cd auth && docker build -t 231615/auth .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - run: docker push 231615/auth
