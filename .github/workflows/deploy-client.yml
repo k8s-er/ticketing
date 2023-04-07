@@ -19,7 +19,7 @@ jobs:
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - run: cd client && docker build -t 231615/client .
+      - run: cd client && docker build -t 231615/ticketing-client .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - run: docker push 231615/ticketing-client
       - run: doctl kubernetes cluster kubeconfig save k8s-1-26-3-do-0-blr1-1680764427709
