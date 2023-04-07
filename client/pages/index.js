@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-// Landing page
+
 const LandingPage = ({ currentUser, tickets }) => {
   const ticketList = tickets.map((ticket) => {
     return (
