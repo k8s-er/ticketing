@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'client/**'
+      - '.github/workflows/**'
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USER_NAME }}
