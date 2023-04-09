@@ -18,7 +18,7 @@ spec:
         resources:
           limits:
             cpu: "1"
-            memory: "256Mi"
+            memory: "500Mi"
         env:
           - name: NATS_CLIENT_ID
             valueFrom:
