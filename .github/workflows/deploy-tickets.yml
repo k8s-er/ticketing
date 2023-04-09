@@ -22,5 +22,5 @@ jobs:
       - run: cd tickets && docker build -t 231615/tickets .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - run: docker push 231615/tickets
-      - run: doctl kubernetes cluster kubeconfig save ticketing
+      - run: doctl kubernetes cluster kubeconfig save d1bb9489-3b0a-4889-ab87-bd34faf8d563
       - run: kubectl rollout restart deployment tickets-depl
