@@ -33,6 +33,7 @@ const LandingPage = ({ currentUser, tickets }) => {
   );
 };
 
+/* Get initial props */
 LandingPage.getInitialProps = async (context, client, currentUser) => {
   const { data } = await client.get("/api/tickets");
 
