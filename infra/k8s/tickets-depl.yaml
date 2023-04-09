@@ -15,6 +15,10 @@ spec:
       containers:
       - name: tickets
         image: 231615/tickets
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
         env:
           - name: NATS_CLIENT_ID
             valueFrom:

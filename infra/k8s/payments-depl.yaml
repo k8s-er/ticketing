@@ -15,6 +15,10 @@ spec:
       containers:
       - name: payments
         image: 231615/payments
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
         env:
           - name: NATS_CLIENT_ID
             valueFrom:
