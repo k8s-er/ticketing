@@ -12,3 +12,6 @@ nodejs, reactjs, Nextjs, mongodb, kubernetes, nats-streaming-server
 - expiration => tracks the whether is order is elligible for payment or expired
 
 All services communication happens with events by nats streaming server
+
+
+This project is deployed at [www.k8ser.xyz](www.k8ser.xyz) (Cluster deleted now)
