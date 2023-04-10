@@ -14,4 +14,4 @@ nodejs, reactjs, Nextjs, mongodb, kubernetes, nats-streaming-server
 All services communication happens with events by nats streaming server
 
 
-This project is deployed at [www.k8ser.xyz](www.k8ser.xyz) (Cluster deleted now)
+This project is deployed at [www.k8ser.xyz](http://k8ser.xyz) (Cluster deleted now)
