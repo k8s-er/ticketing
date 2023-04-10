@@ -1,0 +1,55 @@
+name: Overall Status
+on:
+  workflow_run:
+    workflows:
+      - deploy-auth
+      - deploy-client
+      - deploy-expiration
+      - deploy-manifests
+      - deploy-orders
+      - deploy-payments
+      # Add all other workflows here
+    types:
+      - completed
+
+jobs:
+  check-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check status of all workflows
+        id: check-status
+        run: |
+          workflows=$(echo "${{ toJson(github.event.workflow_runs) }}" | jq -r '.[] | select(.head_branch == "main" and .status != "completed") | .name')
+          if [ -z "$workflows" ]; then
+            echo "::set-output name=status::success"
+          else
+            echo "::set-output name=status::failure"
+          fi
+
+      - name: Set badge
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const status = core.getInput('status');
+            const badge = `https://img.shields.io/badge/build-${status}-brightgreen?logo=github`;
+            const { data: ref } = await octokit.git.getRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${context.ref}`
+            });
+            await octokit.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: ref.object.sha,
+              state: status === 'success' ? 'success' : 'failure',
+              target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions`,
+              description: 'Build Status',
+              context: 'build-status',
+              headers: {
+                'Accept': 'application/vnd.github.antiope-preview+json'
+              },
+              data: {
+                'badge_url': badge
+              }
+            });
